@@ -56,7 +56,7 @@
         }
         .animate-marquee { animation: marquee 20s linear infinite; }
         
-        .bottle-hover:hover { transform: scale(1.02) rotate(2deg); }
+        .bottle-hover:hover { transform: scale(1.02); }
         
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 10px; }
@@ -97,10 +97,10 @@
         <div class="hidden md:flex gap-8 text-sm font-bold uppercase tracking-widest">
             <a href="#concept" class="hover:text-biova-yellow transition">Concept</a>
             <a href="#process" class="hover:text-biova-yellow transition">Processo</a>
-            <a href="#shop" class="hover:text-biova-yellow transition">Acquista</a>
-            <a href="#market" class="hover:text-biova-yellow transition">Analisi Mercato</a>
+            <a href="#shop" class="hover:text-biova-yellow transition">Shop</a>
+            <a href="#market" class="hover:text-biova-yellow transition">Analisi</a>
         </div>
-        <button class="bg-biova-yellow text-biova-black px-6 py-2 uppercase text-xs font-extrabold hover:bg-white transition">
+        <button onclick="document.getElementById('shop').scrollIntoView()" class="bg-biova-yellow text-biova-black px-6 py-2 uppercase text-xs font-extrabold hover:bg-white transition transform hover:scale-105">
             Pre-Order
         </button>
     </nav>
@@ -112,24 +112,24 @@
             <h1 class="font-display text-[25vw] leading-none text-stroke-white opacity-30">RITO</h1>
         </div>
 
-        <div class="z-10 text-center space-y-6 max-w-5xl px-4 hero-content opacity-0 translate-y-10">
-            <div class="inline-block bg-biova-yellow text-biova-black px-4 py-1 font-black text-xs uppercase tracking-[0.3em] mb-4 transform -rotate-2">
+        <div class="z-10 text-center space-y-6 max-w-6xl px-4 hero-content opacity-0 translate-y-10">
+            <div class="inline-block bg-biova-yellow text-biova-black px-4 py-1 font-black text-xs uppercase tracking-[0.3em] mb-4 transform -rotate-2 shadow-[4px_4px_0px_white]">
                 New Product 2026
             </div>
             <h1 class="font-display text-7xl md:text-9xl leading-[0.85] uppercase tracking-tight">
                 NON BERE ALCOL.<br>
-                <span class="text-biova-yellow">BEVI L'INNOVAZIONE.</span>
+                <span class="text-biova-yellow">BEVI IL PANE.</span>
             </h1>
             <p class="text-xl md:text-2xl font-light text-gray-300 max-w-2xl mx-auto mt-6">
                 Il primo amaro al mondo creato dalle trebbie di birra esauste. <br>
                 <strong class="text-white">Zero Alcol. Zero Spreco. Gusto Radicale.</strong>
             </p>
             <div class="pt-10 flex flex-col md:flex-row gap-4 justify-center">
-                <a href="#shop" class="bg-biova-yellow text-biova-black px-10 py-5 font-display text-2xl uppercase tracking-wide hover:bg-white transition duration-300 border-2 border-biova-yellow hover:border-white">
+                <a href="#shop" class="bg-biova-yellow text-biova-black px-10 py-5 font-display text-2xl uppercase tracking-wide hover:bg-white transition duration-300 border-2 border-biova-yellow hover:border-white shadow-lg">
                     Acquista Ora
                 </a>
-                <a href="#market" class="border-2 border-white text-white px-10 py-5 font-display text-2xl uppercase tracking-wide hover:bg-white hover:text-black transition duration-300">
-                    Dati Finanziari
+                <a href="#process" class="border-2 border-white text-white px-10 py-5 font-display text-2xl uppercase tracking-wide hover:bg-white hover:text-black transition duration-300">
+                    Come è fatto
                 </a>
             </div>
         </div>
@@ -168,10 +168,10 @@
                     </div>
                 </div>
             </div>
-            <div class="relative h-[600px] bg-biova-grey rounded-xl overflow-hidden group">
-                 <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?q=80&w=2574&auto=format&fit=crop')] bg-cover bg-center grayscale group-hover:grayscale-0 transition duration-700"></div>
+            <div class="relative h-[600px] bg-biova-darkgrey rounded-xl overflow-hidden group border-2 border-black">
+                 <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?q=80&w=2574&auto=format&fit=crop')] bg-cover bg-center grayscale opacity-60 group-hover:opacity-100 transition duration-700"></div>
                  <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black to-transparent text-white">
-                     <h3 class="font-display text-3xl">L'Amaro del Futuro</h3>
+                     <h3 class="font-display text-3xl text-biova-yellow">L'Amaro del Futuro</h3>
                      <p>Non serve alcol per avere carattere.</p>
                  </div>
             </div>
@@ -192,9 +192,9 @@
                     <div class="h-1 w-full bg-gray-800 mb-6 relative overflow-hidden">
                         <div class="absolute top-0 left-0 h-full w-0 bg-biova-yellow transition-all duration-1000 group-hover:w-full"></div>
                     </div>
-                    <h3 class="font-display text-3xl mb-2 text-white">Recupero & Input</h3>
+                    <h3 class="font-display text-3xl mb-2 text-white">Input: Pane & Trebbie</h3>
                     <p class="text-gray-400 text-sm">
-                        Recuperiamo il pane invenduto dalla GDO e le trebbie fresche dai birrifici partner Biova. Materia prima a Km0 e costo zero.
+                        Recuperiamo il pane invenduto e le trebbie fresche dai birrifici Biova. Materia prima a Km0 e costo zero.
                     </p>
                 </div>
 
@@ -205,7 +205,7 @@
                     </div>
                     <h3 class="font-display text-3xl mb-2 text-white">Tostatura Dark</h3>
                     <p class="text-gray-400 text-sm">
-                        Le trebbie vengono tostate ad alta temperatura (Reazione di Maillard) per sviluppare note di cacao, caffè e liquirizia naturali.
+                        Le trebbie vengono tostate (Reazione di Maillard) per sviluppare note di cacao, caffè e liquirizia naturali.
                     </p>
                 </div>
 
@@ -216,7 +216,7 @@
                     </div>
                     <h3 class="font-display text-3xl mb-2 text-white">Infusione & Blend</h3>
                     <p class="text-gray-400 text-sm">
-                        Uniamo l'estratto di trebbie all'acqua di pane fermentata (che dà corpo) e aggiungiamo bucce di agrumi recuperate per l'aroma.
+                        Uniamo l'estratto di trebbie all'acqua di pane fermentata e aggiungiamo bucce di agrumi di recupero.
                     </p>
                 </div>
 
@@ -225,12 +225,11 @@
                     <div class="h-1 w-full bg-gray-800 mb-6 relative overflow-hidden">
                         <div class="absolute top-0 left-0 h-full w-0 bg-biova-yellow transition-all duration-1000 group-hover:w-full" style="transition-delay: 300ms"></div>
                     </div>
-                    <h3 class="font-display text-3xl mb-2 text-white">Packaging Attivo</h3>
+                    <h3 class="font-display text-3xl mb-2 text-white">Eco Packaging</h3>
                     <p class="text-gray-400 text-sm">
-                        Imbottigliamento in Paper Bottle (84% meno CO2 del vetro) o vetro farmaceutico con etichetta in carta 'Crush' da scarti agroindustriali.
+                        Imbottigliamento in vetro farmaceutico ambrato con etichetta in carta 'Crush' (da scarti di mais).
                     </p>
                 </div>
-
             </div>
         </div>
     </section>
@@ -238,14 +237,21 @@
     <section id="shop" class="py-24 bg-biova-grey text-biova-black overflow-hidden relative">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center z-10 relative">
             
-            <div class="relative h-[700px] flex items-center justify-center">
-                <div class="absolute w-[500px] h-[500px] bg-white rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse"></div>
-                <div class="absolute w-[400px] h-[400px] bg-biova-yellow rounded-full mix-blend-multiply filter blur-3xl opacity-40 top-10 right-10"></div>
+            <div class="relative h-[700px] flex items-center justify-center bg-[#151515] rounded-lg shadow-2xl overflow-hidden group">
+                <div class="absolute w-[500px] h-[500px] bg-amber-900/20 rounded-full blur-[100px] opacity-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
                 
-                <img src="https://files.fm/u/vt48qfvtws?q=80&w=2360&auto=format&fit=crop" 
+                <img src="./biova-rito.jpg" 
+                     onerror="this.src='https://images.unsplash.com/photo-1615486511484-92e172cc416d?q=80&w=2360&auto=format&fit=crop'"
                      alt="Biova Rito Bottle" 
-                     class="relative z-10 h-3/4 object-contain drop-shadow-2xl bottle-hover transition duration-500"
-                     style="filter: sepia(0.2) contrast(1.1) brightness(0.9);">
+                     class="relative z-10 w-full h-full object-cover bottle-hover transition duration-700 ease-in-out">
+                     
+                <div class="absolute top-8 right-8 bg-biova-yellow text-biova-black px-4 py-2 font-display uppercase text-sm z-20 shadow-lg rotate-12">
+                    Batch #001
+                </div>
+                <div class="absolute bottom-8 left-8 text-white z-20">
+                    <div class="text-xs uppercase tracking-widest text-gray-400">Ingredienti</div>
+                    <div class="font-display text-xl">PANE + TREBBIE + ARANCIA</div>
+                </div>
             </div>
 
             <div class="bg-white p-10 shadow-2xl rounded-sm border-t-8 border-biova-yellow">
@@ -253,7 +259,7 @@
                     <div class="flex justify-between items-start">
                         <div>
                             <h2 class="font-display text-6xl uppercase leading-none mb-2">Biova Rito</h2>
-                            <p class="text-lg text-gray-500 font-bold tracking-widest">BATCH #001 / TORINO</p>
+                            <p class="text-lg text-gray-500 font-bold tracking-widest">AMARO UPCYCLED ANALCOLICO</p>
                         </div>
                         <div class="bg-biova-black text-biova-yellow px-4 py-2 font-display text-xl">NEW</div>
                     </div>
@@ -290,20 +296,22 @@
                         <label class="block text-xs font-black uppercase tracking-widest mb-3 text-gray-400">Personalizza Etichetta (+ €3.00)</label>
                         <div class="relative">
                             <input type="text" x-model="customName" 
-                                   placeholder="IL TUO NOME (es. MARIO)" 
+                                   placeholder="IL TUO NOME (es. EMANUELA)" 
                                    class="w-full bg-gray-50 border-2 border-gray-200 p-4 font-display text-xl uppercase focus:outline-none focus:border-biova-black focus:bg-white transition placeholder-gray-300">
                             <i data-lucide="edit-3" class="absolute right-4 top-4 text-gray-400"></i>
                         </div>
                     </div>
 
-                    <div class="group flex items-center justify-between p-4 border-2 border-gray-100 hover:border-biova-yellow cursor-pointer transition bg-gray-50 hover:bg-white" @click="toggleGarnish">
+                    <div class="group flex items-center justify-between p-4 border-2 transition bg-gray-50 cursor-pointer" 
+                         :class="garnish ? 'border-biova-yellow bg-yellow-50' : 'border-gray-100 hover:border-gray-300'"
+                         @click="toggleGarnish">
                         <div class="flex items-center gap-4">
                             <div class="w-14 h-14 bg-biova-yellow rounded-full flex items-center justify-center font-bold text-biova-black shadow-md group-hover:scale-110 transition">
                                 <i data-lucide="cookie" size="24"></i>
                             </div>
                             <div>
                                 <div class="font-bold uppercase font-display text-xl">Zero-Waste Garnish</div>
-                                <div class="text-xs text-gray-500 font-bold">Cialde Croccanti di Trebbie</div>
+                                <div class="text-xs text-gray-500 font-bold">Cialde Croccanti di Trebbie (Snack)</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-4">
@@ -319,6 +327,7 @@
                 <button class="w-full bg-biova-yellow text-biova-black py-6 font-display text-3xl uppercase hover:bg-black hover:text-white hover:scale-[1.01] transition duration-300 flex items-center justify-center gap-3 shadow-xl">
                     Aggiungi al Carrello
                 </button>
+                <p class="text-center text-gray-400 text-xs mt-4">Ogni acquisto supporta la cooperativa sociale "Orti Urbani".</p>
             </div>
         </div>
     </section>
@@ -408,6 +417,7 @@
             <div class="text-center md:text-left">
                 <h2 class="font-display text-6xl text-biova-yellow mb-2">BIOVA.</h2>
                 <p class="text-gray-500 text-sm uppercase tracking-widest">Master Sustainability Project 2026</p>
+                <p class="text-gray-600 text-xs mt-2">Team di Progetto: Innovazione Circolare</p>
             </div>
             <div class="flex gap-8">
                 <a href="#" class="text-gray-400 hover:text-white font-bold uppercase text-sm">Download Pitch Deck</a>
@@ -481,7 +491,7 @@
                 basePrice: 19.90,
                 customName: '',
                 garnish: false,
-                garnishPrice: 2.50, // LOWERED PRICE AS REQUESTED
+                garnishPrice: 2.50, // PREZZO AGGIORNATO
                 
                 get totalPrice() {
                     let price = this.basePrice;
