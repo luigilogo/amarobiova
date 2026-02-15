@@ -6,7 +6,7 @@
     <title>BIOVA RITO | The Upcycled Spirit</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -26,7 +26,7 @@
                             yellow: '#FFD200',
                             black: '#111111',
                             grey: '#F4F4F4',
-                            paper: '#EBE5CE'
+                            darkgrey: '#1A1A1A'
                         }
                     },
                     fontFamily: {
@@ -42,21 +42,28 @@
     </script>
 
     <style>
-        /* Custom Styles for nuances Tailwind can't catch */
         body { background-color: #F4F4F4; color: #111; overflow-x: hidden; }
+        
+        /* Typography Effects */
         .text-stroke { -webkit-text-stroke: 1px #111; color: transparent; }
         .text-stroke-white { -webkit-text-stroke: 1px #FFF; color: transparent; }
+        .text-stroke-yellow { -webkit-text-stroke: 1px #FFD200; color: transparent; }
         
-        /* Marquee Animation */
+        /* Animations */
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
         .animate-marquee { animation: marquee 20s linear infinite; }
         
-        /* Bottle Hover Effect */
         .bottle-hover:hover { transform: scale(1.02) rotate(2deg); }
         
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: #FFD200; }
+        ::-webkit-scrollbar-thumb:hover { background: #fff; }
+
         /* Loader */
         .loader-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -64,236 +71,369 @@
             display: flex; justify-content: center; align-items: center;
             transition: transform 0.8s ease-in-out;
         }
+
+        /* Back to Top Button */
+        #backToTop {
+            opacity: 0; visibility: hidden; transition: all 0.3s ease;
+        }
+        #backToTop.visible {
+            opacity: 1; visibility: visible;
+        }
     </style>
 </head>
-<body class="antialiased font-body relative">
+<body class="antialiased font-body relative" x-data="shopConfig()">
 
     <div class="loader-screen" id="loader">
-        <h1 class="font-display text-6xl md:text-9xl tracking-tighter animate-pulse">BIOVA PROJECT</h1>
+        <h1 class="font-display text-6xl md:text-9xl tracking-tighter animate-pulse text-biova-black">BIOVA PROJECT</h1>
     </div>
 
-    <nav class="fixed w-full z-50 px-6 py-4 flex justify-between items-center mix-blend-difference text-white">
-        <div class="font-display text-2xl tracking-wide">BIOVA RITO</div>
-        <div class="hidden md:flex gap-8 text-sm font-semibold uppercase tracking-widest">
-            <a href="#manifesto" class="hover:text-biova-yellow transition">Manifesto</a>
-            <a href="#process" class="hover:text-biova-yellow transition">Il Ciclo</a>
-            <a href="#shop" class="hover:text-biova-yellow transition">Shop</a>
+    <button id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" 
+            class="fixed bottom-8 right-8 z-40 bg-biova-black text-biova-yellow p-4 border-2 border-biova-yellow hover:bg-biova-yellow hover:text-biova-black transition duration-300 shadow-lg group">
+        <i data-lucide="arrow-up" class="group-hover:-translate-y-1 transition duration-300"></i>
+    </button>
+
+    <nav class="fixed w-full z-50 px-6 py-4 flex justify-between items-center mix-blend-difference text-white bg-biova-black/10 backdrop-blur-sm">
+        <div class="font-display text-3xl tracking-wide text-biova-yellow">BIOVA RITO</div>
+        <div class="hidden md:flex gap-8 text-sm font-bold uppercase tracking-widest">
+            <a href="#concept" class="hover:text-biova-yellow transition">Concept</a>
+            <a href="#process" class="hover:text-biova-yellow transition">Processo</a>
+            <a href="#shop" class="hover:text-biova-yellow transition">Acquista</a>
+            <a href="#market" class="hover:text-biova-yellow transition">Analisi Mercato</a>
         </div>
-        <button class="border border-white px-6 py-2 uppercase text-xs font-bold hover:bg-white hover:text-black transition">
-            Menu
+        <button class="bg-biova-yellow text-biova-black px-6 py-2 uppercase text-xs font-extrabold hover:bg-white transition">
+            Pre-Order
         </button>
     </nav>
 
     <header class="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-biova-black text-white">
-        <div class="absolute inset-0 opacity-20 bg-noise mix-blend-overlay"></div>
+        <div class="absolute inset-0 opacity-10 bg-noise mix-blend-overlay"></div>
         
-        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
-            <h1 class="font-display text-[20vw] leading-none text-stroke-white opacity-50">RITO</h1>
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20 select-none">
+            <h1 class="font-display text-[25vw] leading-none text-stroke-white opacity-30">RITO</h1>
         </div>
 
-        <div class="z-10 text-center space-y-6 max-w-4xl px-4 hero-content opacity-0 translate-y-10">
-            <div class="inline-block bg-biova-yellow text-biova-black px-3 py-1 font-bold text-xs uppercase tracking-[0.2em] mb-4">
-                New Product Launch 2026
+        <div class="z-10 text-center space-y-6 max-w-5xl px-4 hero-content opacity-0 translate-y-10">
+            <div class="inline-block bg-biova-yellow text-biova-black px-4 py-1 font-black text-xs uppercase tracking-[0.3em] mb-4 transform -rotate-2">
+                New Product 2026
             </div>
-            <h1 class="font-display text-6xl md:text-8xl leading-[0.9] uppercase">
-                Non bere alcol.<br>
-                <span class="text-biova-yellow">Bevi il Pane.</span>
+            <h1 class="font-display text-7xl md:text-9xl leading-[0.85] uppercase tracking-tight">
+                NON BERE ALCOL.<br>
+                <span class="text-biova-yellow">BEVI IL PANE.</span>
             </h1>
-            <p class="text-lg md:text-xl font-light text-gray-300 max-w-2xl mx-auto">
-                Il primo amaro al mondo creato dalle trebbie di birra esauste. 
-                Zero Alcol. 100% Economia Circolare. Gusto Radicale.
+            <p class="text-xl md:text-2xl font-light text-gray-300 max-w-2xl mx-auto mt-6">
+                Il primo amaro al mondo creato dalle trebbie di birra esauste. <br>
+                <strong class="text-white">Zero Alcol. Zero Spreco. Gusto Radicale.</strong>
             </p>
-            <div class="pt-8 flex gap-4 justify-center">
-                <a href="#shop" class="bg-biova-yellow text-biova-black px-8 py-4 font-display text-xl uppercase tracking-wide hover:bg-white transition duration-300">
+            <div class="pt-10 flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#shop" class="bg-biova-yellow text-biova-black px-10 py-5 font-display text-2xl uppercase tracking-wide hover:bg-white transition duration-300 border-2 border-biova-yellow hover:border-white">
                     Acquista Ora
                 </a>
-                <a href="#manifesto" class="border border-white text-white px-8 py-4 font-display text-xl uppercase tracking-wide hover:bg-white hover:text-black transition duration-300">
-                    Scopri il Rito
+                <a href="#market" class="border-2 border-white text-white px-10 py-5 font-display text-2xl uppercase tracking-wide hover:bg-white hover:text-black transition duration-300">
+                    Dati Finanziari
                 </a>
             </div>
         </div>
     </header>
 
-    <div class="bg-biova-yellow text-biova-black overflow-hidden py-4 border-y-4 border-black">
-        <div class="whitespace-nowrap flex animate-marquee">
-            <span class="font-display text-4xl mx-8">WASTE TO TASTE</span>
-            <span class="font-display text-4xl mx-8">•</span>
-            <span class="font-display text-4xl mx-8">UPCYCLED CERTIFIED</span>
-            <span class="font-display text-4xl mx-8">•</span>
-            <span class="font-display text-4xl mx-8">ALCOHOL FREE</span>
-            <span class="font-display text-4xl mx-8">•</span>
-            <span class="font-display text-4xl mx-8">GUT FRIENDLY</span>
-            <span class="font-display text-4xl mx-8">•</span>
-            <span class="font-display text-4xl mx-8">WASTE TO TASTE</span>
-            <span class="font-display text-4xl mx-8">•</span>
-            <span class="font-display text-4xl mx-8">UPCYCLED CERTIFIED</span>
-            <span class="font-display text-4xl mx-8">•</span>
-            <span class="font-display text-4xl mx-8">ALCOHOL FREE</span>
-            <span class="font-display text-4xl mx-8">•</span>
+    <div class="bg-biova-yellow text-biova-black overflow-hidden py-5 border-y-4 border-black rotate-1 scale-105 z-20 relative shadow-xl">
+        <div class="whitespace-nowrap flex animate-marquee font-bold">
+            <span class="font-display text-4xl mx-8">WASTE TO TASTE</span><span class="font-display text-4xl mx-8">•</span>
+            <span class="font-display text-4xl mx-8">UPCYCLED CERTIFIED</span><span class="font-display text-4xl mx-8">•</span>
+            <span class="font-display text-4xl mx-8">ALCOHOL FREE</span><span class="font-display text-4xl mx-8">•</span>
+            <span class="font-display text-4xl mx-8">GUT FRIENDLY</span><span class="font-display text-4xl mx-8">•</span>
+            <span class="font-display text-4xl mx-8">CIRCULAR ECONOMY</span><span class="font-display text-4xl mx-8">•</span>
+            <span class="font-display text-4xl mx-8">WASTE TO TASTE</span><span class="font-display text-4xl mx-8">•</span>
         </div>
     </div>
 
-    <section id="manifesto" class="py-24 px-6 bg-biova-grey relative">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="font-display text-5xl md:text-7xl mb-12 text-biova-black uppercase">
-                Il Manifesto <span class="text-stroke">Circolare</span>
-            </h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[800px]">
-                
-                <div class="md:col-span-2 md:row-span-2 bg-biova-black text-white p-8 md:p-12 relative overflow-hidden group rounded-xl">
-                    <div class="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1559563362-c667ba5f5480?q=80&w=2501&auto=format&fit=crop')] bg-cover bg-center transition duration-700 group-hover:scale-110"></div>
-                    <div class="relative z-10 flex flex-col justify-between h-full">
-                        <div>
-                            <div class="text-biova-yellow font-display text-2xl mb-2">01. IL CONCETTO</div>
-                            <h3 class="font-display text-4xl md:text-6xl uppercase leading-tight">Dalle Trebbie<br>all'Elisir.</h3>
-                        </div>
-                        <p class="text-lg text-gray-300 max-w-md">
-                            Biova fa birra dal pane. Noi usiamo lo scarto della birra (trebbie) tostato per creare l'amarezza, e il pane fermentato per il corpo. È la chiusura perfetta del cerchio.
-                        </p>
+    <section id="concept" class="py-24 px-6 bg-white relative">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="font-display text-6xl md:text-8xl mb-6 text-biova-black uppercase leading-none">
+                    Circolarità <br><span class="text-biova-yellow bg-biova-black px-2">Al Quadrato</span>
+                </h2>
+                <p class="text-xl text-gray-700 mb-8 leading-relaxed">
+                    Biova fa birra dal pane. Ma cosa succede allo scarto della birra?
+                    <br><br>
+                    <strong>Biova RITO</strong> chiude il cerchio. Usiamo le trebbie (residui d'orzo) tostate per creare l'amarezza naturale, e il pane fermentato per dare corpo e densità. Sostituiamo radici costose e sciroppi industriali con ciò che prima era rifiuto.
+                </p>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="border-l-4 border-biova-yellow pl-4">
+                        <div class="font-display text-4xl text-biova-black">150g</div>
+                        <div class="text-sm uppercase font-bold text-gray-500">Trebbie Salvate / Bottiglia</div>
+                    </div>
+                    <div class="border-l-4 border-biova-black pl-4">
+                        <div class="font-display text-4xl text-biova-black">0.0%</div>
+                        <div class="text-sm uppercase font-bold text-gray-500">Gradazione Alcolica</div>
                     </div>
                 </div>
-
-                <div class="bg-white p-8 border-2 border-biova-black rounded-xl flex flex-col justify-center items-center text-center hover:bg-biova-yellow transition duration-300">
-                    <div class="font-display text-6xl md:text-8xl mb-2">150g</div>
-                    <p class="font-bold uppercase tracking-widest text-sm">di scarto salvato<br>per bottiglia</p>
-                </div>
-
-                <div class="bg-white p-8 border-2 border-biova-black rounded-xl flex flex-col justify-between hover:bg-biova-yellow transition duration-300">
-                    <i data-lucide="scan-line" size="40" class="mb-4"></i>
-                    <div>
-                        <h4 class="font-display text-3xl uppercase mb-2">Passaporto Digitale</h4>
-                        <p class="text-sm">Ogni bottiglia ha un QR Code unico. Scansiona per vedere dove abbiamo recuperato il pane che stai bevendo.</p>
-                    </div>
-                </div>
+            </div>
+            <div class="relative h-[600px] bg-biova-grey rounded-xl overflow-hidden group">
+                 <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?q=80&w=2574&auto=format&fit=crop')] bg-cover bg-center grayscale group-hover:grayscale-0 transition duration-700"></div>
+                 <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black to-transparent text-white">
+                     <h3 class="font-display text-3xl">L'Amaro del Futuro</h3>
+                     <p>Non serve alcol per avere carattere.</p>
+                 </div>
             </div>
         </div>
     </section>
 
-    <section id="shop" class="py-24 bg-white text-biova-black overflow-hidden" x-data="shopConfig()">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section id="process" class="py-24 bg-biova-black text-white relative">
+        <div class="absolute inset-0 opacity-10 bg-noise"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <h2 class="font-display text-5xl md:text-7xl mb-16 text-center text-white uppercase">
+                Il Processo <span class="text-stroke-yellow">Rigenerativo</span>
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                
+                <div class="process-card group">
+                    <div class="text-8xl font-display text-biova-darkgrey group-hover:text-biova-yellow transition duration-500 mb-4">01</div>
+                    <div class="h-1 w-full bg-gray-800 mb-6 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 h-full w-0 bg-biova-yellow transition-all duration-1000 group-hover:w-full"></div>
+                    </div>
+                    <h3 class="font-display text-3xl mb-2 text-white">Recupero & Input</h3>
+                    <p class="text-gray-400 text-sm">
+                        Recuperiamo il pane invenduto dalla GDO e le trebbie fresche dai birrifici partner Biova. Materia prima a Km0 e costo zero.
+                    </p>
+                </div>
+
+                <div class="process-card group">
+                    <div class="text-8xl font-display text-biova-darkgrey group-hover:text-biova-yellow transition duration-500 mb-4">02</div>
+                    <div class="h-1 w-full bg-gray-800 mb-6 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 h-full w-0 bg-biova-yellow transition-all duration-1000 group-hover:w-full" style="transition-delay: 100ms"></div>
+                    </div>
+                    <h3 class="font-display text-3xl mb-2 text-white">Tostatura Dark</h3>
+                    <p class="text-gray-400 text-sm">
+                        Le trebbie vengono tostate ad alta temperatura (Reazione di Maillard) per sviluppare note di cacao, caffè e liquirizia naturali.
+                    </p>
+                </div>
+
+                <div class="process-card group">
+                    <div class="text-8xl font-display text-biova-darkgrey group-hover:text-biova-yellow transition duration-500 mb-4">03</div>
+                    <div class="h-1 w-full bg-gray-800 mb-6 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 h-full w-0 bg-biova-yellow transition-all duration-1000 group-hover:w-full" style="transition-delay: 200ms"></div>
+                    </div>
+                    <h3 class="font-display text-3xl mb-2 text-white">Infusione & Blend</h3>
+                    <p class="text-gray-400 text-sm">
+                        Uniamo l'estratto di trebbie all'acqua di pane fermentata (che dà corpo) e aggiungiamo bucce di agrumi recuperate per l'aroma.
+                    </p>
+                </div>
+
+                <div class="process-card group">
+                    <div class="text-8xl font-display text-biova-darkgrey group-hover:text-biova-yellow transition duration-500 mb-4">04</div>
+                    <div class="h-1 w-full bg-gray-800 mb-6 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 h-full w-0 bg-biova-yellow transition-all duration-1000 group-hover:w-full" style="transition-delay: 300ms"></div>
+                    </div>
+                    <h3 class="font-display text-3xl mb-2 text-white">Packaging Attivo</h3>
+                    <p class="text-gray-400 text-sm">
+                        Imbottigliamento in Paper Bottle (84% meno CO2 del vetro) o vetro farmaceutico con etichetta in carta 'Crush' da scarti agroindustriali.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="shop" class="py-24 bg-biova-grey text-biova-black overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center z-10 relative">
             
-            <div class="relative h-[600px] bg-biova-grey rounded-3xl flex items-center justify-center p-10 overflow-hidden border-2 border-biova-black/10">
-                <div class="absolute top-10 left-10 w-32 h-32 bg-biova-yellow rounded-full blur-3xl opacity-50"></div>
-                <div class="absolute bottom-10 right-10 w-48 h-48 bg-black rounded-full blur-3xl opacity-10"></div>
+            <div class="relative h-[700px] flex items-center justify-center">
+                <div class="absolute w-[500px] h-[500px] bg-white rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse"></div>
+                <div class="absolute w-[400px] h-[400px] bg-biova-yellow rounded-full mix-blend-multiply filter blur-3xl opacity-40 top-10 right-10"></div>
                 
                 <img src="https://images.unsplash.com/photo-1615486511484-92e172cc416d?q=80&w=2360&auto=format&fit=crop" 
                      alt="Biova Rito Bottle" 
-                     class="relative z-10 h-full object-contain drop-shadow-2xl bottle-hover transition duration-500"
-                     style="filter: sepia(0.2) contrast(1.1);">
-                
-                <div class="absolute top-8 right-8 bg-biova-black text-white px-4 py-2 font-display uppercase text-sm rotate-12">
-                    Batch #001
-                </div>
+                     class="relative z-10 h-3/4 object-contain drop-shadow-2xl bottle-hover transition duration-500"
+                     style="filter: sepia(0.2) contrast(1.1) brightness(0.9);">
             </div>
 
-            <div class="space-y-8">
-                <div>
-                    <h2 class="font-display text-6xl md:text-7xl uppercase leading-none mb-4">Biova Rito</h2>
-                    <p class="text-xl text-gray-600 font-light">Amaro Analcolico Artigianale Upcycled.</p>
-                </div>
-
-                <div class="h-px w-full bg-gray-200"></div>
-
-                <div class="flex items-end gap-4">
-                    <div class="font-display text-5xl" x-text="formatPrice(totalPrice)">€ 19.90</div>
-                    <div class="text-green-600 font-bold mb-2 flex items-center gap-1">
-                        <i data-lucide="check" size="16"></i> Disponibile
+            <div class="bg-white p-10 shadow-2xl rounded-sm border-t-8 border-biova-yellow">
+                <div class="mb-8">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h2 class="font-display text-6xl uppercase leading-none mb-2">Biova Rito</h2>
+                            <p class="text-lg text-gray-500 font-bold tracking-widest">BATCH #001 / TORINO</p>
+                        </div>
+                        <div class="bg-biova-black text-biova-yellow px-4 py-2 font-display text-xl">NEW</div>
                     </div>
                 </div>
 
-                <div class="space-y-6">
+                <div class="h-px w-full bg-gray-200 mb-8"></div>
+
+                <div class="flex items-end gap-4 mb-8">
+                    <div class="font-display text-6xl text-biova-black" x-text="formatPrice(totalPrice)">€ 19.90</div>
+                    <div class="text-green-600 font-bold mb-4 flex items-center gap-1 uppercase text-xs tracking-wider">
+                        <i data-lucide="truck" size="16"></i> Spedizione in 24h
+                    </div>
+                </div>
+
+                <div class="space-y-6 mb-10">
                     
                     <div>
-                        <label class="block text-sm font-bold uppercase tracking-widest mb-3">Seleziona Formato</label>
+                        <label class="block text-xs font-black uppercase tracking-widest mb-3 text-gray-400">Seleziona Formato</label>
                         <div class="flex gap-4">
                             <button @click="setSize('50cl', 19.90)" 
-                                    :class="size === '50cl' ? 'bg-biova-black text-white' : 'bg-white text-black border border-gray-300 hover:border-black'"
-                                    class="flex-1 py-4 font-display text-xl uppercase transition">
+                                    :class="size === '50cl' ? 'bg-biova-black text-white ring-2 ring-biova-yellow' : 'bg-gray-100 text-black hover:bg-gray-200'"
+                                    class="flex-1 py-4 font-display text-2xl uppercase transition duration-200">
                                 50 CL
                             </button>
                             <button @click="setSize('70cl', 24.90)" 
-                                    :class="size === '70cl' ? 'bg-biova-black text-white' : 'bg-white text-black border border-gray-300 hover:border-black'"
-                                    class="flex-1 py-4 font-display text-xl uppercase transition">
+                                    :class="size === '70cl' ? 'bg-biova-black text-white ring-2 ring-biova-yellow' : 'bg-gray-100 text-black hover:bg-gray-200'"
+                                    class="flex-1 py-4 font-display text-2xl uppercase transition duration-200">
                                 70 CL
                             </button>
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-bold uppercase tracking-widest mb-3">Personalizza Etichetta (+ €3.00)</label>
-                        <input type="text" x-model="customName" @input="updateCustomization"
-                               placeholder="Inserisci il tuo nome (es. MARCO)" 
-                               class="w-full bg-gray-50 border-b-2 border-gray-300 p-4 font-display text-xl uppercase focus:outline-none focus:border-biova-yellow focus:bg-white transition placeholder-gray-400">
+                        <label class="block text-xs font-black uppercase tracking-widest mb-3 text-gray-400">Personalizza Etichetta (+ €3.00)</label>
+                        <div class="relative">
+                            <input type="text" x-model="customName" 
+                                   placeholder="IL TUO NOME (es. MARIO)" 
+                                   class="w-full bg-gray-50 border-2 border-gray-200 p-4 font-display text-xl uppercase focus:outline-none focus:border-biova-black focus:bg-white transition placeholder-gray-300">
+                            <i data-lucide="edit-3" class="absolute right-4 top-4 text-gray-400"></i>
+                        </div>
                     </div>
 
-                    <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:border-biova-yellow cursor-pointer transition" @click="toggleGarnish">
+                    <div class="group flex items-center justify-between p-4 border-2 border-gray-100 hover:border-biova-yellow cursor-pointer transition bg-gray-50 hover:bg-white" @click="toggleGarnish">
                         <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-biova-yellow rounded-full flex items-center justify-center font-bold">
-                                <i data-lucide="leaf" size="20"></i>
+                            <div class="w-14 h-14 bg-biova-yellow rounded-full flex items-center justify-center font-bold text-biova-black shadow-md group-hover:scale-110 transition">
+                                <i data-lucide="cookie" size="24"></i>
                             </div>
                             <div>
-                                <div class="font-bold uppercase">Zero-Waste Garnish</div>
-                                <div class="text-xs text-gray-500">Cialde croccanti di trebbie per guarnire.</div>
+                                <div class="font-bold uppercase font-display text-xl">Zero-Waste Garnish</div>
+                                <div class="text-xs text-gray-500 font-bold">Cialde Croccanti di Trebbie</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-4">
-                            <div class="font-bold">+ €4.00</div>
-                            <div class="w-6 h-6 rounded-full border-2 border-black flex items-center justify-center" :class="garnish ? 'bg-biova-black' : ''">
-                                <i x-show="garnish" data-lucide="check" size="14" class="text-white"></i>
+                            <div class="font-display text-xl text-biova-black">+ €2.50</div>
+                            <div class="w-8 h-8 rounded-full border-2 border-black flex items-center justify-center transition" :class="garnish ? 'bg-biova-black' : 'bg-white'">
+                                <i x-show="garnish" data-lucide="check" size="18" class="text-biova-yellow"></i>
                             </div>
                         </div>
                     </div>
 
                 </div>
 
-                <button class="w-full bg-biova-yellow text-biova-black py-6 font-display text-2xl uppercase hover:bg-black hover:text-biova-yellow transition duration-300 flex items-center justify-center gap-3">
-                    Aggiungi al Carrello <i data-lucide="shopping-bag"></i>
+                <button class="w-full bg-biova-yellow text-biova-black py-6 font-display text-3xl uppercase hover:bg-black hover:text-white hover:scale-[1.01] transition duration-300 flex items-center justify-center gap-3 shadow-xl">
+                    Aggiungi al Carrello
                 </button>
-                
-                <p class="text-xs text-center text-gray-400">Spedizione gratuita sopra i 50€ • Packaging Carbon Neutral</p>
             </div>
         </div>
     </section>
 
-    <footer class="bg-biova-black text-white py-20 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
-            <div class="col-span-1 md:col-span-2">
-                <h2 class="font-display text-5xl text-biova-yellow mb-6">BIOVA.</h2>
-                <p class="text-gray-400 max-w-sm">
-                    Siamo un movimento contro lo spreco alimentare. Trasformiamo eccedenze in valore. Unisciti al cambiamento, un sorso alla volta.
-                </p>
+    <section id="market" class="py-24 bg-biova-darkgrey text-white relative border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+                <div>
+                    <h2 class="font-display text-5xl md:text-7xl uppercase mb-2">Business Case</h2>
+                    <p class="text-biova-yellow font-bold uppercase tracking-widest">Perché investire in Rito?</p>
+                </div>
+                <div class="text-right mt-8 md:mt-0">
+                    <p class="text-gray-400 text-sm">Fonte Dati: NielsenIQ, IWSR, McKinsey (2025)</p>
+                </div>
             </div>
-            <div>
-                <h4 class="font-bold uppercase tracking-widest mb-6 text-biova-yellow">Progetto</h4>
-                <ul class="space-y-4 text-gray-400">
-                    <li><a href="#" class="hover:text-white transition">Chi Siamo</a></li>
-                    <li><a href="#" class="hover:text-white transition">Sostenibilità</a></li>
-                    <li><a href="#" class="hover:text-white transition">Impact Report</a></li>
-                </ul>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                
+                <div class="bg-black p-8 border border-gray-800 rounded-sm">
+                    <h3 class="font-display text-2xl mb-8 uppercase text-gray-300">Crescita Mercato "No-Low"</h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2 text-sm font-bold">
+                                <span>Alcolici Tradizionali</span>
+                                <span class="text-red-500">-1.2%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-4 rounded-full overflow-hidden">
+                                <div class="bg-red-500 h-full w-[10%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2 text-sm font-bold">
+                                <span>Soft Drinks</span>
+                                <span class="text-gray-400">+3.5%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-4 rounded-full overflow-hidden">
+                                <div class="bg-gray-500 h-full w-[35%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2 text-sm font-bold">
+                                <span class="text-biova-yellow">No-Alcohol Spirits (RITO)</span>
+                                <span class="text-biova-yellow">+30.5%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-4 rounded-full overflow-hidden">
+                                <div class="bg-biova-yellow h-full w-[85%] animate-pulse"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-black p-8 border border-gray-800 rounded-sm flex flex-col justify-center text-center">
+                    <h3 class="font-display text-2xl mb-6 uppercase text-gray-300">Il Target Gen Z</h3>
+                    
+                    <div class="relative w-48 h-48 mx-auto mb-6 flex items-center justify-center">
+                        <svg class="transform -rotate-90 w-full h-full">
+                            <circle cx="96" cy="96" r="88" stroke="#333" stroke-width="12" fill="transparent" />
+                            <circle cx="96" cy="96" r="88" stroke="#FFD200" stroke-width="12" fill="transparent" stroke-dasharray="552" stroke-dashoffset="193" /> </svg>
+                        <div class="absolute text-5xl font-display text-white">65%</div>
+                    </div>
+                    <p class="text-gray-400 font-bold max-w-sm mx-auto">
+                        Dei giovani tra i 18 e i 24 anni dichiara di voler ridurre l'alcol per "Mental Clarity" e "Physical Health".
+                    </p>
+                </div>
             </div>
-            <div>
-                <h4 class="font-bold uppercase tracking-widest mb-6 text-biova-yellow">Contatti</h4>
-                <ul class="space-y-4 text-gray-400">
-                    <li>M. barbano@biovaproject.com</li>
-                    <li>Via Valperga Caluso 18, Torino</li>
-                    <li class="flex gap-4 mt-4">
-                        <i data-lucide="instagram" class="hover:text-biova-yellow cursor-pointer"></i>
-                        <i data-lucide="linkedin" class="hover:text-biova-yellow cursor-pointer"></i>
-                    </li>
-                </ul>
+
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-4 text-center border-t border-gray-800 pt-10">
+                <div>
+                    <div class="text-gray-500 uppercase text-xs font-bold mb-2">Costo Produzione</div>
+                    <div class="font-display text-4xl text-white">€ 4.00</div>
+                </div>
+                <div>
+                    <div class="text-gray-500 uppercase text-xs font-bold mb-2">Margine Lordo B2B</div>
+                    <div class="font-display text-4xl text-biova-yellow">66%</div>
+                </div>
+                <div>
+                    <div class="text-gray-500 uppercase text-xs font-bold mb-2">Break-Even Point</div>
+                    <div class="font-display text-4xl text-white">3.000 <span class="text-lg">Bottiglie</span></div>
+                </div>
             </div>
         </div>
-        <div class="text-center text-gray-600 mt-20 text-sm">
-            &copy; 2026 Biova Project R&D. Designed for Educational Purposes.
+    </section>
+
+    <footer class="bg-black text-white py-20 border-t border-gray-900">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-10">
+            <div class="text-center md:text-left">
+                <h2 class="font-display text-6xl text-biova-yellow mb-2">BIOVA.</h2>
+                <p class="text-gray-500 text-sm uppercase tracking-widest">Master Sustainability Project 2026</p>
+            </div>
+            <div class="flex gap-8">
+                <a href="#" class="text-gray-400 hover:text-white font-bold uppercase text-sm">Download Pitch Deck</a>
+                <a href="#" class="text-gray-400 hover:text-white font-bold uppercase text-sm">Contatta Team</a>
+            </div>
+            <div class="text-gray-600 text-xs">
+                &copy; Designed for educational purposes only.
+            </div>
         </div>
     </footer>
 
     <script>
-        // Inizializza Icone
+        // Init Icons
         lucide.createIcons();
 
-        // Logica Loader e Animazioni GSAP
+        // Scroll Logic (Back To Top + Navbar)
+        window.addEventListener('scroll', () => {
+            const backToTopBtn = document.getElementById('backToTop');
+            if (window.scrollY > 500) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        // Loader & GSAP Animations
         window.addEventListener('load', () => {
             const tl = gsap.timeline();
             
@@ -310,10 +450,10 @@
                 ease: "power3.out"
             }, "-=0.5");
 
-            // Animazioni ScrollTrigger
-            gsap.from("#manifesto .grid > div", {
+            // Process Animation
+            gsap.from(".process-card", {
                 scrollTrigger: {
-                    trigger: "#manifesto",
+                    trigger: "#process",
                     start: "top 70%"
                 },
                 y: 50,
@@ -321,30 +461,38 @@
                 duration: 0.8,
                 stagger: 0.2
             });
+
+            // Market Bars Animation
+            gsap.from(".bg-biova-yellow.animate-pulse", {
+                scrollTrigger: {
+                    trigger: "#market",
+                    start: "top 80%"
+                },
+                width: "0%",
+                duration: 1.5,
+                ease: "power2.out"
+            });
         });
 
-        // Logica Shop (Alpine.js)
+        // Alpine.js Shop Logic
         function shopConfig() {
             return {
                 size: '50cl',
                 basePrice: 19.90,
                 customName: '',
                 garnish: false,
+                garnishPrice: 2.50, // LOWERED PRICE AS REQUESTED
                 
                 get totalPrice() {
                     let price = this.basePrice;
                     if (this.customName.length > 0) price += 3.00;
-                    if (this.garnish) price += 4.00;
+                    if (this.garnish) price += this.garnishPrice;
                     return price;
                 },
 
                 setSize(size, price) {
                     this.size = size;
                     this.basePrice = price;
-                },
-
-                updateCustomization() {
-                    // La reattività di Alpine aggiorna automaticamente il prezzo
                 },
 
                 toggleGarnish() {
